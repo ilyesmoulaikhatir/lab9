@@ -1,0 +1,33 @@
+2. Utilisation de la commande: gcc -c - Wall -fPIC *.c
+
+3. Utilisaton de la commande: gcc -shared -o libtest.so *.o
+
+6. La bibliothèque dynamique est nécessaire d'être spécifié lors de 2 étapes: la compilation et l'éxcution. Lors de l'édition de lien, les .o ne sont pas remplacé et il est alors donc nécessaire de spécifier la librairie ou se situe les .o afin de pouvoir excuter.
+
+7. Utilisation de la commande: echo $LD_LIBRARY_PATH
+   Cette variable d'environement est vide. Variable d'environnement pour spécifier les bibliothéques qui ne se situe pas dans /user/lib.
+
+8. Utilisation de la commande: export LD_LIBRARY_PATH=$LD_LIBRARY_PATH/opt/lib
+
+9. L'execution fonctionne, il trouve le chemain de la bibliothéque dynamique.
+
+10. Nous devons alors éditer notre fichier /home/ilyes/.bashrc et y ajouter la commande qui nous permet d'ajouter le chemin /opt/lib à la variable d'environnement LD_LIBRARY_PATH à l'aide de la commande suivante: echo 'LD_LIBRARY_PATH=$LD_LIBRARY_PATH/opt/lib' >> /home/ilyes/.bashrc
+
+11. La bibliothèque se trouve dans /lib/x86_64-linux-gnu
+    Utilisation de la commande: locate libm.so
+
+12. le fichier libm.so.6 est un soname et le vrai fichier est libm-7.27.so
+
+13. Utilisation de la commande: sudo cp /opt/lib/libtest.so /usr/lib/libtest.so, pour copier le ficheier.
+    Utilisation de la commande: sudo chmod a-w /usr/lib/libtest.so, enléve le droit d'écriture pour tout le monde.
+
+14. Utilisation de la commande: sudo ldconfig
+
+15. Utilisation de la commande: ldconfig -p | grep libtest.so
+
+16. Utilisation de la commande: ldd /usr/lib/libtest.so
+
+17. Utilisation de la commande: unset LD_LIBRARY_PATH
+
+18. Utilisation de la commande: gcc main.c -ltest -o main.exe
+
